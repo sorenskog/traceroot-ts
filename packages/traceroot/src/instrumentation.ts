@@ -18,6 +18,7 @@ const OPENINFERENCE_PACKAGES = {
   anthropic: ['@arizeai/openinference-instrumentation-anthropic', 'AnthropicInstrumentation'],
   langchain: ['@arizeai/openinference-instrumentation-langchain', 'LangChainInstrumentation'],
   bedrock: ['@arizeai/openinference-instrumentation-bedrock', 'BedrockInstrumentation'],
+  typeSafe: ['@arizeai/openinference-instrumentation-typesafe', 'TypeSafeInstrumentation'],
 } as const;
 
 // Provider keys (from OPENINFERENCE_PACKAGES) whose OpenInference instrumentation is actually
@@ -57,6 +58,8 @@ const OPENINFERENCE_LOADERS: Record<string, () => Record<string, unknown>> = {
     requireOptional('@arizeai/openinference-instrumentation-langchain'),
   '@arizeai/openinference-instrumentation-bedrock': () =>
     requireOptional('@arizeai/openinference-instrumentation-bedrock'),
+  '@arizeai/openinference-instrumentation-typesafe': () =>
+    requireOptional('@arizeai/openinference-instrumentation-typesafe'),
 };
 
 function loadInstrumentation(pkg: string, exportName: string): InstrumentationCtor | null {
