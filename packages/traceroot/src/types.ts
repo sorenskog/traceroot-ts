@@ -84,6 +84,7 @@ export interface InitializeOptions {
     langchain?: unknown;
     claudeAgentSDK?: unknown;
     bedrock?: unknown;
+    typeSafe?: unknown;
     /**
      * @openai/agents module ref. Pass `import * as agents from '@openai/agents'`.
      *

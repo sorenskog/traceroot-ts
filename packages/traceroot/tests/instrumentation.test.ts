@@ -29,6 +29,8 @@ describe('wireInstrumentations() lazy loading', () => {
           throw new Error('should not load langchain instrumentation');
         if (request === '@arizeai/openinference-instrumentation-bedrock')
           throw new Error('should not load bedrock instrumentation');
+        if (request === '@arizeai/openinference-instrumentation-typesafe')
+          throw new Error('should not load typesafe instrumentation');
         return orig.apply(this, [request, ...rest]);
       };
       const { wireInstrumentations } = require('./src/instrumentation.ts');

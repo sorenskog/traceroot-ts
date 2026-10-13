@@ -28,7 +28,7 @@ describe('consumer bundling boundary', () => {
       'expected the statically imported semantic-conventions package to be bundled',
     );
 
-    for (const provider of ['openai', 'anthropic', 'langchain', 'bedrock']) {
+    for (const provider of ['openai', 'anthropic', 'langchain', 'bedrock', 'typesafe']) {
       assert.ok(
         !inlined.some((file) => file.includes(`openinference-instrumentation-${provider}`)),
         `${provider} instrumentation was bundled`,
