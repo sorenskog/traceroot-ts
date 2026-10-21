@@ -84,7 +84,10 @@ function installExitHooks(flushOnSignal: boolean, flushTimeoutMs: number): void 
       });
     };
     _processListeners.push([signal, onSignal]);
-    process.on(signal, onSignal);
+    // Prepended so it runs before the app's handlers: a `once` app handler ahead of it
+    // would already have removed itself, hiding it from the listener count above, and
+    // starting the flush first gives it the most time before an app-initiated exit.
+    process.prependListener(signal, onSignal);
   }
 }
 

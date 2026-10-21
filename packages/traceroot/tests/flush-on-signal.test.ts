@@ -86,6 +86,16 @@ describe('flush on SIGTERM/SIGINT', () => {
     assert.equal(result.code, 7);
   });
 
+  it('honors a one-shot app handler registered before initialize()', async () => {
+    // A `once` listener ahead of ours removes itself before ours runs, so a listener
+    // count read inside our handler would miss it and kill the process mid-shutdown.
+    const result = await runAndSignal('SIGTERM', {
+      appSetup: `process.once('SIGTERM', () => setTimeout(() => process.exit(7), 1000));`,
+    });
+    assert.equal(result.exports, 1);
+    assert.equal(result.code, 7);
+  });
+
   it('does not install signal handlers when flushOnSignal is false', async () => {
     const result = await runAndSignal('SIGTERM', { initOptions: 'flushOnSignal: false' });
     assert.equal(result.exports, 0);
